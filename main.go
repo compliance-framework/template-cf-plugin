@@ -1,6 +1,6 @@
 package main
 
-//GITHUB TEMPLATE INSTRUCTIONS: Go through all lines with this prefix and address the description. When happy, remove these lines.
+//GITHUB TEMPLATE INSTRUCTIONS: Go through all lines with the prefix 'GITHUB TEMPLATE INSTRUCTIONS' and do what it tells you to. When happy, remove the comment lines beginning 'GITHUB TEMPLATE INSTRUCTIONS'.
 
 import (
 	"fmt"
@@ -17,15 +17,15 @@ type TemplateProvider struct {
 }
 
 func (p *TemplateProvider) Evaluate(input *EvaluateInput) (*EvaluateResult, error) {
-	//GITHUB TEMPLATE INSTRUCTIONS: Replace Configitemname/configitemname in this file with your config name, keeping the correct case
-	configitemname, ok := input.Configuration["configitemname"]
+	//GITHUB TEMPLATE INSTRUCTIONS: Replace configItemName in this file with your config name, keeping the correct case
+	configItemName, ok := input.Configuration["configItemName"]
 	if !ok {
-		return nil, fmt.Errorf("configitemname parameter is missing")
+		return nil, fmt.Errorf("configItemName parameter is missing")
 	}
 
 	// There can be an array of subjects if needed, but here we have only one
 	subjects := make([]*Subject, 0)
-	subject_id := fmt.Sprintf("Subject identifier: %s", configitemname)  // GITHUB TEMPLATE INSTRUCTIONS: Create an identifier for the subject of the compliance activity
+	subject_id := fmt.Sprintf("Subject identifier: %s", configItemName)  // GITHUB TEMPLATE INSTRUCTIONS: Create an identifier for the subject of the compliance activity
 	subjects = append(subjects, &Subject{
 		Id:    subject_id,
 		Type:  SubjectType_INVENTORY_ITEM,
