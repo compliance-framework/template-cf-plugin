@@ -9,6 +9,7 @@ import (
 
 	. "github.com/compliance-framework/assessment-runtime/provider"
 	"github.com/google/uuid"
+	"gopkg.in/yaml.v2"
 )
 
 //GITHUB TEMPLATE INSTRUCTIONS: Replace 'Template' throughout this file with your chosen plugin name
