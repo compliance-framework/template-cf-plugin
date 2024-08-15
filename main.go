@@ -16,16 +16,42 @@ type TemplateProvider struct {
     message string
 }
 
+type YamlConfig struct {
+	// GITHUB TEMPLATE INSTRUCTIONS: Replace this struct with config passed in through the 'yaml' item
+    SomeConfigItem string `json:"config_item" yaml:"config_item"`
+}
+
 func (p *TemplateProvider) Evaluate(input *EvaluateInput) (*EvaluateResult, error) {
-	//GITHUB TEMPLATE INSTRUCTIONS: Replace configItemName in this file with your config name, keeping the correct case
-	configItemName, ok := input.Configuration["configItemName"]
-	if !ok {
-		return nil, fmt.Errorf("configItemName parameter is missing")
-	}
+    var yaml_config YamlConfig
+
+	// Extract the passed-in YAML into code here.
+    yamlString, ok := input.Configuration["yaml"]
+    if !ok {
+        return nil, fmt.Errorf("yaml parameter is missing")
+    }
+    err := yaml.Unmarshal([]byte(yamlString), &yaml_config)
+    if err != nil {
+        return nil, fmt.Errorf("Error unmarshalling YAML: %v\n", err)
+    }
+    log.Printf("yamlString: %s", yamlString)
+
+	// GITHUB TEMPLATE INSTRUCTIONS: If config item is needed from external call, change it here
+	//someConfigItem := yaml_config.SomeConfigItem
+
+	// GITHUB TEMPLATE INSTRUCTIONS: If env var secrets are needed, process them here.
+    //// Get environment variable for the secret
+    //secret := os.Getenv("SECRET")
+
+    //if secret == "" {
+    //    return nil, fmt.Errorf("One or more environment variables are not set")
+    //}
+    //if !ok {
+    //    return nil, fmt.Errorf("secret is missing")
+    //}
 
 	// There can be an array of subjects if needed, but here we have only one
 	subjects := make([]*Subject, 0)
-	subject_id := fmt.Sprintf("Subject identifier: %s", configItemName)  // GITHUB TEMPLATE INSTRUCTIONS: Create an identifier for the subject of the compliance activity
+	subject_id := fmt.Sprintf("Subject identifier: %s", someConfigItem)  // GITHUB TEMPLATE INSTRUCTIONS: Create an identifier for the subject of the compliance activity
 	subjects = append(subjects, &Subject{
 		Id:    subject_id,
 		Type:  SubjectType_INVENTORY_ITEM,
